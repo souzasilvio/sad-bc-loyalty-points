@@ -6,8 +6,8 @@ codeunit 60003 "LoyaltyPointsEventSubscriber"
         LoyaltyManager: Codeunit "LoyaltyPointsManager";
         AmountSpent: Decimal;
     begin
-        
-        Message('Event fired for document: %1', SalesHeader."No.");
+
+        Message('Event fired for document: %1 and amount %2', SalesHeader."No.", SalesHeader.Amount);
 
         AmountSpent := SalesHeader.Amount;
         LoyaltyManager.AddLoyaltyPoints(SalesHeader."Bill-to Customer No.", AmountSpent);
