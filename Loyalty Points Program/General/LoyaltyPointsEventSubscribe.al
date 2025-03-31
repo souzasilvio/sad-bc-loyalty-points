@@ -1,18 +1,17 @@
 codeunit 60003 "LoyaltyPointsEventSubscriber"
 {
-    // Subscribe to the sales-post event published by the Sales Posting codeunit.
-    // Adjust the ObjectType, Publisher codeunit, event name, and parameters as needed.
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterPostSalesDoc', '', false, false)]
-    local procedure OnAfterPostSalesDoc(var SalesHeader: Record "Sales Header")
+    local procedure OnAfterPostSalesDoc(var SalesHeader: Record "Sales Header"; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; SalesShptHdrNo: Code[20]; RetRcpHdrNo: Code[20]; SalesInvHdrNo: Code[20]; SalesCrMemoHdrNo: Code[20])
     var
         LoyaltyManager: Codeunit "LoyaltyPointsManager";
         AmountSpent: Decimal;
     begin
-        // Retrieve the amount from the sales document.
-        // Here we use the "Total Amount" field as an example.
-        AmountSpent := SalesHeader.Amount;
+        
+        Message('Event fired for document: %1', SalesHeader."No.");
 
-        // Call the business logic to add loyalty points.
+        AmountSpent := SalesHeader.Amount;
         LoyaltyManager.AddLoyaltyPoints(SalesHeader."Bill-to Customer No.", AmountSpent);
     end;
+
+
 }

@@ -7,6 +7,7 @@ codeunit 60002 LoyaltyPointsManager
     var
         Customer: Record Customer; // Reference to Customer table
     begin
+        
         if Customer.Get(CustomerID) then begin
             Customer.LoyaltyPoints += CalculatePoints(AmountSpent); // Update Loyalty Points
             Customer.Modify(); // Save changes
